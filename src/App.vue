@@ -1,17 +1,32 @@
+<!-- src/App.vue -->
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <NoteList />
+    <AddNoteForm />
+    <p>Jumlah Catatan: {{ noteCount }}</p>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { defineComponent } from 'vue';
+import NoteList from '@/components/NoteList.vue';
+import AddNoteForm from '@/components/AddNoteForm.vue';
+import { useNoteStore } from '@/store/store';
 
-export default {
-  name: 'App',
+export default defineComponent({
   components: {
-    HelloWorld
-  }
-}
+    NoteList,
+    AddNoteForm,
+  },
+  setup() {
+    const noteStore = useNoteStore();
+    const noteCount = noteStore.noteCount;
+
+    return {
+      noteCount,
+    };
+  },
+});
 </script>
 
 <style>
